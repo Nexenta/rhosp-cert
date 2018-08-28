@@ -16,6 +16,8 @@ ARG SRCDIR=$GITDIR/cinder/volume/drivers/nexenta
 ARG DSTDIR=/usr/lib/python2.7/site-packages/cinder/volume/drivers
 RUN git clone -b $BRANCH $GITURL $GITDIR && \
     rm -rf $DSTDIR/nexenta && \
+    mkdir -p /licenses && \
     cp -pR $SRCDIR $DSTDIR && \
+    cp -p $GITDIR/LICENSE /licenses && \
     rm -rf $GITDIR
 USER cinder
