@@ -1,7 +1,12 @@
 FROM registry.access.redhat.com/rhosp13/openstack-cinder-volume
 USER root
-RUN git clone -b stable/queens https://github.com/Nexenta/cinder.git nexenta
-RUN rm -rf /usr/lib/python2.7/site-packages/cinder/volume/drivers/nexenta
-COPY nexenta/cinder/volume/drivers/nexenta /usr/lib/python2.7/site-packages/cinder/volume/drivers
-RUN rm -rf nexenta
+ENV GITDIR nexenta
+ENV BRANCH stable/queens
+ENV GITURL https://github.com/Nexenta/cinder.git
+ENV SRCDIR $GITDIR/cinder/volume/drivers/nexenta
+ENV DSTDIR /usr/lib/python2.7/site-packages/cinder/volume/drivers
+RUN git clone -b $BRANCH $GITURL $GITDIR && \
+    rm -rf $DSTDIR/nexenta && \
+    cp -pR $SRCDIR $DSTDIR && \
+    rm -rf $GITDIR
 USER root
