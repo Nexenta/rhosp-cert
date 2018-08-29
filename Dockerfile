@@ -1,22 +1,27 @@
-FROM registry.access.redhat.com/rhosp13/openstack-cinder-volume:pcmklatest
+FROM registry.access.redhat.com/rhosp13/openstack-cinder-volume
 MAINTAINER Nexenta
 LABEL name="rhosp13/openstack-cinder-volume-nexentastor5" \
-    description="Nexenta OpenStack Platform 13.0 cinder-volume" \
-    summary="Nexenta OpenStack Platform 13.0 cinder-volume" \
+    description="Nexenta OpenStack Platform 13.0 cinder-volume driver" \
+    summary="Nexenta OpenStack Platform 13.0 cinder-volume driver" \
     vendor="Nexenta" \
     version="13.0" \
     release="1" \
     githash="632b923"
 USER root
-ARG GITDIR=nexenta
+ARG OPTDIR=/opt
+ARG LCSDIR=/licenses
+ARG NEXDIR=$OPTDIR/nexenta
+ARG GITDIR=$NEXDIR/git
 ARG BRANCH=stable/queens
+ARG DRVDIR=cinder/volume/drivers
+ARG PKGDIR=lib/python2.7/site-packages
+ARG SRCDIR=$GITDIR/$DRVDIR/nexenta
+ARG DSTDIR=$NEXDIR/$PKGDIR/$DRVDIR
+ENV PYTHONPATH=$NEXDIR/$PKGDIR
 ARG GITURL=https://github.com/Nexenta/cinder.git
-ARG SRCDIR=$GITDIR/cinder/volume/drivers/nexenta
-ARG DSTDIR=/usr/lib/python2.7/site-packages/cinder/volume/drivers
-RUN git clone -b $BRANCH $GITURL $GITDIR && \
-    rm -rf $DSTDIR/nexenta && \
-    mkdir -p /licenses && \
-    cp -pR $SRCDIR $DSTDIR && \
-    cp -p $GITDIR/LICENSE /licenses && \
+RUN mkdir -p -v -m 0755 $DSTDIR $LCSDIR && \
+    git clone -b $BRANCH $GITURL $GITDIR && \
+    cp -av $SRCDIR $DSTDIR && \
+    cp -av $GITDIR/LICENSE $LCSDIR && \
     rm -rf $GITDIR
 USER cinder
