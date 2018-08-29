@@ -1,4 +1,4 @@
-FROM registry.access.redhat.com/rhosp13/openstack-cinder-volume
+FROM registry.access.redhat.com/rhosp13/openstack-cinder-volume:pcmklatest
 MAINTAINER Nexenta
 LABEL name="rhosp13/openstack-cinder-volume-nexentastor5" \
     description="Nexenta OpenStack Platform 13.0 cinder-volume" \
