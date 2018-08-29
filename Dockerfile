@@ -3,7 +3,6 @@ MAINTAINER Nexenta
 LABEL name="rhosp13/openstack-cinder-volume-nexentastor5" \
     description="Nexenta OpenStack Platform 13.0 cinder-volume" \
     summary="Nexenta OpenStack Platform 13.0 cinder-volume" \
-    license="ASL 2.0" \
     vendor="Nexenta" \
     version="13.0" \
     release="1" \
