@@ -1,6 +1,6 @@
 FROM registry.access.redhat.com/rhosp13/openstack-cinder-volume
 MAINTAINER Nexenta
-LABEL name="rhosp13/openstack-cinder-volume-nexentastor5" \
+LABEL name="rhosp13/openstack-cinder-volume-nexenta" \
     description="Nexenta OpenStack Platform 13.0 cinder-volume driver" \
     summary="Nexenta OpenStack Platform 13.0 cinder-volume driver" \
     vendor="Nexenta" \
@@ -21,7 +21,8 @@ ENV PYTHONPATH=$NEXDIR/$PKGDIR
 ARG GITURL=https://github.com/Nexenta/cinder.git
 RUN mkdir -p -v -m 0755 $DSTDIR $LCSDIR && \
     git clone -b $BRANCH $GITURL $GITDIR && \
-    cp -av $SRCDIR $DSTDIR && \
     cp -av $GITDIR/LICENSE $LCSDIR && \
+    cp -av $SRCDIR $DSTDIR && \
+    python2 -O -m compileall $DSTDIR && \
     rm -rf $GITDIR
 USER cinder
