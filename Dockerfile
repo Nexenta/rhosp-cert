@@ -5,8 +5,8 @@ LABEL name="rhosp13/openstack-cinder-volume-nexenta" \
     summary="Nexenta OpenStack Platform 13.0 cinder-volume driver" \
     vendor="Nexenta" \
     version="13.0" \
-    release="2" \
-    githash="632b923"
+    release="1" \
+    githash="b9a6fd8"
 USER root
 ARG OPTDIR=/opt
 ARG LCSDIR=/licenses
