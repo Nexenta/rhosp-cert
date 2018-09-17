@@ -11,19 +11,19 @@ USER root
 ARG OPTDIR=/opt
 ARG LCSDIR=/licenses
 ARG NEXDIR=$OPTDIR/nexenta
-ARG GITDIR=$NEXDIR/git
+ARG GITDIR=$NEXDIR/cinder-stable-queens
 ARG BRANCH=stable/queens
 ARG DRVDIR=cinder/volume/drivers
 ARG PKGDIR=lib/python2.7/site-packages
 ARG SRCDIR=$GITDIR/$DRVDIR/nexenta
 ARG DSTDIR=$NEXDIR/$PKGDIR/$DRVDIR
+ARG GITURL=https://github.com/Nexenta/cinder/archive
 ENV PYTHONPATH=$NEXDIR/$PKGDIR
-ARG GITURL=https://github.com/Nexenta/cinder.git
 RUN mkdir -p -v -m 0755 $DSTDIR $LCSDIR && \
-    rpm -qa|grep git && \
-    git clone -b $BRANCH $GITURL $GITDIR && \
+    curl -L -s -o $NEXDIR/driver.tar.gz $GITURL/$BRANCH.tar.gz && \
+    tar -xfz -C $NEXDIR $NEXDIR/driver.tar.gz && \
     cp -av $GITDIR/LICENSE $LCSDIR && \
     cp -av $SRCDIR $DSTDIR && \
     python2 -O -m compileall $DSTDIR && \
-    rm -rf $GITDIR
+    rm -rf $GITDIR $NEXDIR/driver.tar.gz
 USER cinder
