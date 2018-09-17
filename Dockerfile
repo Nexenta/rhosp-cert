@@ -21,7 +21,7 @@ ARG GITURL=https://github.com/Nexenta/cinder/archive
 ENV PYTHONPATH=$NEXDIR/$PKGDIR
 RUN mkdir -p -v -m 0755 $DSTDIR $LCSDIR && \
     curl -L -s -o $NEXDIR/driver.tar.gz $GITURL/$BRANCH.tar.gz && \
-    tar -C $NEXDIR -xfz $NEXDIR/driver.tar.gz && \
+    tar -C $NEXDIR -xzf $NEXDIR/driver.tar.gz && \
     cp -av $GITDIR/LICENSE $LCSDIR && \
     cp -av $SRCDIR $DSTDIR && \
     python2 -O -m compileall $DSTDIR && \
