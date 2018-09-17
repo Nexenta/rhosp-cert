@@ -20,6 +20,7 @@ ARG DSTDIR=$NEXDIR/$PKGDIR/$DRVDIR
 ENV PYTHONPATH=$NEXDIR/$PKGDIR
 ARG GITURL=https://github.com/Nexenta/cinder.git
 RUN mkdir -p -v -m 0755 $DSTDIR $LCSDIR && \
+    rpm -qa|grep git && \
     git clone -b $BRANCH $GITURL $GITDIR && \
     cp -av $GITDIR/LICENSE $LCSDIR && \
     cp -av $SRCDIR $DSTDIR && \
